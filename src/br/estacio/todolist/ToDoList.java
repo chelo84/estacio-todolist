@@ -20,6 +20,7 @@ public class ToDoList extends javax.swing.JFrame {
      */
     public ToDoList() {
         initComponents();
+        table.getColumn("Excluir").setCellRenderer(new ButtonRenderer());
     }
 
     /**
@@ -70,9 +71,16 @@ public class ToDoList extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table);
