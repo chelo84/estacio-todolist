@@ -5,6 +5,7 @@
  */
 package br.estacio.todolist;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -43,7 +44,6 @@ public class ToDoList extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fieldAdd.setText("jTextField1");
         fieldAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldAddActionPerformed(evt);
@@ -151,17 +151,24 @@ public class ToDoList extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{new Boolean(false), fieldAdd.getText(), "deletar"});
+        fieldAdd.setText("");
         
         TableColumn c = table.getColumnModel().getColumn(2);
         ButtonRenderer br = new ButtonRenderer();
-        
         c.setCellEditor(br);
         c.setCellRenderer(br);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExcluirTudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTudoActionPerformed
          DefaultTableModel model = (DefaultTableModel) table.getModel();
-         model.setRowCount(0);
+         for( int i = 0; i < model.getRowCount(); i++ ) {
+             Boolean tc = (Boolean) model.getValueAt(i, 0);
+             
+             if(tc) {
+               model.removeRow(i);  
+               i--;
+             }
+        }
     }//GEN-LAST:event_btnExcluirTudoActionPerformed
 
     /**
