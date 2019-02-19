@@ -6,31 +6,52 @@
 package br.estacio.todolist;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.util.EventObject;
+import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author aluno
  */
-public class ButtonRenderer extends JButton implements TableCellRenderer {
+public class ButtonRenderer extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
     
-    public ButtonRenderer() {
-    setOpaque(true);
-  }
 
-  public Component getTableCellRendererComponent(JTable table, Object value,
-      boolean isSelected, boolean hasFocus, int row, int column) {
-    if (isSelected) {
-      setForeground(table.getSelectionForeground());
-      setBackground(table.getSelectionBackground());
-    } else {
-      setForeground(table.getForeground());
-      setBackground(UIManager.getColor("Button.background"));
+   @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        JButton b = new JButton("Delete");
+        return b;
     }
-    setText((value == null) ? "" : value.toString());
-    return this;
-  }
+        
+   @Override
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, final int row, int column) {
+        JButton b = new JButton("Delete");
+        b.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((DefaultTableModel)table.getModel()).removeRow(row);
+            }
+        });
+        return b;
+    }
+      @Override
+    public Object getCellEditorValue() {
+        return null;
+    }
+
+    @Override
+    public boolean isCellEditable(EventObject anEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldSelectCell(EventObject anEvent) {
+        return true;
+    }
 }

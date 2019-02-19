@@ -5,9 +5,12 @@
  */
 package br.estacio.todolist;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.UUID;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -59,6 +62,11 @@ public class ToDoList extends javax.swing.JFrame {
         });
 
         btnExcluirTudo.setText("Excluir tudo");
+        btnExcluirTudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirTudoActionPerformed(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,16 +79,9 @@ public class ToDoList extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
-                true, true, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table);
@@ -153,8 +154,19 @@ public class ToDoList extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{new Boolean(false), fieldAdd.getText(), new JButton("deletar")});
+        model.addRow(new Object[]{new Boolean(false), fieldAdd.getText(), "deletar"});
+        
+        TableColumn c = table.getColumnModel().getColumn(2);
+        ButtonRenderer br = new ButtonRenderer();
+        
+        c.setCellEditor(br);
+        c.setCellRenderer(br);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnExcluirTudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTudoActionPerformed
+         DefaultTableModel model = (DefaultTableModel) table.getModel();
+         model.setRowCount(0);
+    }//GEN-LAST:event_btnExcluirTudoActionPerformed
 
     /**
      * @param args the command line arguments

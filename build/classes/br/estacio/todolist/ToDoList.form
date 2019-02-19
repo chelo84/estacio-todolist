@@ -124,6 +124,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir tudo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirTudoActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -138,7 +141,7 @@
                   <Table columnCount="3" rowCount="0">
                     <Column editable="true" title="" type="java.lang.Boolean"/>
                     <Column editable="true" title="Texto" type="java.lang.Object"/>
-                    <Column editable="false" title="Excluir" type="java.lang.Object"/>
+                    <Column editable="true" title="Excluir" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
