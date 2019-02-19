@@ -5,10 +5,6 @@
  */
 package br.estacio.todolist;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.UUID;
-import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
